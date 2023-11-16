@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 import { LoginRequestDto } from './dtos/login-request.dto';
@@ -18,11 +18,9 @@ export class AuthController {
     });
   }
 
-  async createUser(
-    @Param('usertype') id: string,
-    @Body() createUserDto: CreateUserDto,
-  ) {
-    const newAccount = await this.authService.createUser(id, createUserDto);
+  @Post('/create')
+  async createUser(@Body() createUserDto: CreateUserDto) {
+    const newAccount = await this.authService.createUser(createUserDto);
     return new CommonResponseDto(newAccount);
   }
 }

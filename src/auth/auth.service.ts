@@ -36,7 +36,7 @@ export class AuthService {
     });
   }
 
-  async createUser(usertype: string, createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     try {
       const createdUser = await this.prismaService.user.create({
         data: {
@@ -50,7 +50,7 @@ export class AuthService {
       return createdUser;
     } catch (e) {
       console.log({ e });
-      return new BadRequestException('존재하는 id입니다');
+      throw new BadRequestException('존재하는 id입니다');
     }
   }
 

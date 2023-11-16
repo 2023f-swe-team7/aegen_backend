@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -26,7 +25,7 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   });
 
-  const appConfig = app.get(ConfigService);
+  // const appConfig = app.get(ConfigService);
 
   app.enableShutdownHooks();
   console.log('listening on port 4000..');

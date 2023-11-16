@@ -11,6 +11,7 @@ RUN npm run build
 FROM node:18-alpine
 
 COPY --from=builder /build .
+RUN ["chmod", "+x", "./builder/entrypoint.sh"]
 COPY ./builder/entrypoint.sh .
 
 ENTRYPOINT [ "./entrypoint.sh" ]

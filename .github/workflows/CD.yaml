@@ -4,7 +4,7 @@ on:
     branches: [ "main" ]
 env:
   dockerimage_tag: ${{ github.sha }}
-  dockerimage_name: jcy0308/aegen
+  dockerimage_name: jcy0308/aegen-be
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,7 +42,6 @@ jobs:
             chmod +x ./builder/entrypoint.sh
             echo DATABASE_URL=${{secrets.DATABASE}} >> .env
             echo JWT_SECRET=${{secrets.JWT}} >> .env
-            cat .env
       - name: Docker 이미지 빌드+푸시
         id: build-and-push
         uses: docker/build-push-action@v4.0.0

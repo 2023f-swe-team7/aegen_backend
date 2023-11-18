@@ -9,7 +9,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post('/login')
   async login(@Req() req: Request, @Body() loginRequsetDto: LoginRequestDto) {
     const accessToken = await this.authService.login(req, loginRequsetDto);
 
@@ -18,7 +18,7 @@ export class AuthController {
     });
   }
 
-  @Post('/create')
+  @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     const newAccount = await this.authService.createUser(createUserDto);
     return new CommonResponseDto(newAccount);

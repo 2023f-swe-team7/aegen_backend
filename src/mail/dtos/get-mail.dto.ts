@@ -11,7 +11,7 @@ export class GetMailDto {
 }
 
 export class GetMailResponse {
-  constructor(mail: string, email:string) {
+  constructor(mail: string, email: string) {
     this.mail = mail;
     this.professorEmail = email;
   }

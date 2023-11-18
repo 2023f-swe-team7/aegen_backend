@@ -8,7 +8,6 @@ export class MailService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getMail(user: User, getMailDto: GetMailDto) {
-    const { username, major, studentId } = user;
     const { type, subject } = getMailDto;
     const subjectInfo: Subject = await this.prisma.subject.findFirst({
       where: {
@@ -22,12 +21,12 @@ export class MailService {
     });
     if (!subjectInfo || !mailFormat)
       throw new BadRequestException('올바른 타입과 과목이름을 적어주세요');
-    const newMail = this.generateMail(mailFormat.content, subjectInfo, user)
+    const newMail = this.generateMail(mailFormat.content, subjectInfo, user);
     console.log(newMail);
     return new GetMailResponse(newMail, subjectInfo.professorEmail);
   }
 
-  generateMail(template:string, subjectInfo: Subject, userInfo:User) {
+  generateMail(template: string, subjectInfo: Subject, userInfo: User) {
     let tmpMail = template.replace(/major/gi, userInfo.major);
     tmpMail = tmpMail.replace(/subjectNum/gi, subjectInfo.subjectNum);
     tmpMail = tmpMail.replace(/subjectName/gi, subjectInfo.subjectName);

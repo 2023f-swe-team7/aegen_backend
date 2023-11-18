@@ -3,7 +3,7 @@ import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { MailService } from './mail.service';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
 import { User } from '@prisma/client';
-import { GetMailDto, GetMailResponse } from './dtos/get-mail.dto';
+import { GetMailDto } from './dtos/get-mail.dto';
 import { CommonResponseDto } from 'src/common/dtos/common-response.dto';
 
 @UseGuards(JwtGuard)

@@ -45,7 +45,23 @@ export class AuthService {
           studentId: createUserDto.studentId,
           studentEmail: createUserDto.email,
           id: createUserDto.id,
+          major: createUserDto.major,
         },
+      });
+      createUserDto.subject.forEach(async (subject) => {
+        const currentSubject = await this.prismaService.subject.findFirst({
+          where: {
+            subjectName: subject,
+          },
+        });
+        if (!currentSubject)
+          throw new BadRequestException('해당 과목이 존재하지 않습니다.');
+        await this.prismaService.signUp.create({
+          data: {
+            userId: createUserDto.id,
+            subjectId: currentSubject.id,
+          },
+        });
       });
       return createdUser;
     } catch (e) {

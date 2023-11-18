@@ -16,15 +16,22 @@ model User {
   username     String    @db.VarChar(30)
   studentId    String    @db.VarChar(30)
   studentEmail String    @db.VarChar(30)
+  major        String    @db.VarChar(30)
   subject      Subject[]
 }
 
 model Subject {
-  classId        Int     @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   subjectName    String  @db.VarChar(30)
   User           User?   @relation(fields: [userId], references: [id])
   userId         String?
   professorEmail String? @db.VarChar(30)
   taEmail        String? @db.VarChar(30)
   subjectNum     String  @db.VarChar(30)
+}
+
+model Mail {
+  id      Int    @id @default(autoincrement())
+  type    String @db.VarChar(30)
+  content String @db.Text
 }

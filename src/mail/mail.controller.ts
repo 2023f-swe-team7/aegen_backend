@@ -1,4 +1,4 @@
-import { Body, Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { MailService } from './mail.service';
 import { CurrentUser } from 'src/common/decorator/current-user.decorator';
@@ -12,7 +12,7 @@ export class MailController {
   constructor(private readonly mailService: MailService) {}
 
   @Get()
-  async getMail(@CurrentUser() user: User, @Body() getMailDto: GetMailDto) {
+  async getMail(@CurrentUser() user: User, @Query() getMailDto: GetMailDto) {
     const newMail = await this.mailService.getMail(user, getMailDto);
     return new CommonResponseDto(newMail);
   }

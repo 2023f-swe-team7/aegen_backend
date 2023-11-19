@@ -6,21 +6,25 @@ import { User } from '@prisma/client';
 import { GetMailDto } from './dtos/get-mail.dto';
 import { CommonResponseDto } from 'src/common/dtos/common-response.dto';
 
-@UseGuards(JwtGuard)
-@Controller('mail/')
+@Controller('mail')
 export class MailController {
-  constructor(
-    private readonly mailService: MailService
-    ) {}
+  constructor(private readonly mailService: MailService) {}
 
+  @UseGuards(JwtGuard)
   @Get()
   async getMail(@CurrentUser() user: User, @Query() getMailDto: GetMailDto) {
     const newMail = await this.mailService.getMail(user, getMailDto);
     return new CommonResponseDto(newMail);
   }
 
-  @Post('send')
-  async sendMail(@Body() body: { receiver: string; subject: string; text: string }) {
-    return await this.mailService.sendEmail(body.receiver, body.subject, body.text);
+  @Post('/send')
+  async sendMail(
+    @Body() body: { receiver: string; subject: string; text: string },
+  ) {
+    return await this.mailService.sendEmail(
+      body.receiver,
+      body.subject,
+      body.text,
+    );
   }
 }

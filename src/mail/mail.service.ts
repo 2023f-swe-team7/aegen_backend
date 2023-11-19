@@ -43,9 +43,9 @@ export class MailService {
   private oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
-    process.env.REDIRECT_URL
+    process.env.REDIRECT_URL,
   );
-    
+
   async sendEmail(receiver: string, subject: string, text: string) {
     this.oauth2Client.setCredentials({
       refresh_token: process.env.REFRESH_TOKEN,
@@ -62,7 +62,7 @@ export class MailService {
       accessToken: process.env.ACCESS_TOKEN,
     });
 
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         type: 'OAuth2',
@@ -76,9 +76,9 @@ export class MailService {
 
     const mailOptions = {
       from: 'kimdozz01@gmail.com',
-      to: receiver, 
-      subject: subject, 
-      text: text, 
+      to: receiver,
+      subject: subject,
+      text: text,
     };
 
     try {

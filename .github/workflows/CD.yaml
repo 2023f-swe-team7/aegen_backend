@@ -42,6 +42,11 @@ jobs:
             chmod +x ./builder/entrypoint.sh
             echo DATABASE_URL=${{secrets.DATABASE}} >> .env
             echo JWT=${{secrets.JWT}} >> .env
+            echo REFRESH_TOKEN=${{secrets.REFRESH_TOKEN}} >> .env
+            echo ACCESS_TOKEN=${{secrets.ACCESS_TOKEN}} >> .env
+            echo CLIENT_ID=${{secrets.CLIENT_ID}} >> .env
+            echo CLIENT_SECRET=${{secrets.CLIENT_SECRET}} >> .env
+            echo RIDIRECT_URL=${{secrets.RIDRECT_URL}} >> .env
       - name: Docker 이미지 빌드+푸시
         id: build-and-push
         uses: docker/build-push-action@v4.0.0

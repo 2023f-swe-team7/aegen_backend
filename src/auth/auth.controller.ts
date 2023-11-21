@@ -3,7 +3,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginRequestDto } from './dtos/login-request.dto';
 import { Request } from 'express';
-import { CommonResponseDto } from 'src/common/dtos/common-response.dto';
+import { CommonResponseDto } from '../common/dtos/common-response.dto';
 import { CreateUserDto } from './dtos/create-user.dto';
 @Controller('auth')
 export class AuthController {

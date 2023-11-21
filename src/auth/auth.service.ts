@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/config/database/prisma.service';
+import { PrismaService } from '../config/database/prisma.service';
 import { LoginRequestDto } from './dtos/login-request.dto';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
@@ -38,6 +38,14 @@ export class AuthService {
 
   async createUser(createUserDto: CreateUserDto) {
     try {
+      const UserExist = await this.prismaService.user.findFirst({
+        where: {
+          id: createUserDto.id,
+        },
+      });
+      if (UserExist) {
+        throw new BadRequestException('존재하는 id입니다.');
+      }
       const createdUser = await this.prismaService.user.create({
         data: {
           username: createUserDto.name,
@@ -65,8 +73,7 @@ export class AuthService {
       });
       return createdUser;
     } catch (e) {
-      console.log({ e });
-      throw new BadRequestException('존재하는 id입니다');
+      throw new BadRequestException('회원가입에 실패했습니다.');
     }
   }
 

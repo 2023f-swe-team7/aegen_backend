@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
-import { JwtGuard } from 'src/auth/guards/jwt.guard';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 import { MailService } from './mail.service';
-import { CurrentUser } from 'src/common/decorator/current-user.decorator';
+import { CurrentUser } from '../common/decorator/current-user.decorator';
 import { User } from '@prisma/client';
 import { GetMailDto } from './dtos/get-mail.dto';
-import { CommonResponseDto } from 'src/common/dtos/common-response.dto';
+import { CommonResponseDto } from '../common/dtos/common-response.dto';
 
 @Controller('mail')
 export class MailController {
@@ -21,6 +21,7 @@ export class MailController {
   async sendMail(
     @Body() body: { receiver: string; subject: string; text: string },
   ) {
+    console.log(body);
     return await this.mailService.sendEmail(
       body.receiver,
       body.subject,

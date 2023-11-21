@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Subject, User } from '@prisma/client';
-import { PrismaService } from 'src/config/database/prisma.service';
+import { PrismaService } from '../config/database/prisma.service';
 import { GetMailDto, GetMailResponse } from './dtos/get-mail.dto';
 import { google } from 'googleapis';
 import * as nodemailer from 'nodemailer';

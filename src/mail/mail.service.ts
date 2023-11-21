@@ -25,6 +25,10 @@ export class MailService {
       throw new BadRequestException('올바른 타입과 과목이름을 적어주세요');
     const newMail = this.generateMail(mailFormat.content, subjectInfo, user);
     console.log(newMail);
+    function sleep(ms) {
+      return new Promise((r) => setTimeout(r, ms));
+    }
+    await sleep(2000);
     return new GetMailResponse(newMail, subjectInfo.professorEmail);
   }
 
